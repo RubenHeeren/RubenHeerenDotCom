@@ -133,3 +133,23 @@
     @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
   }
 }
+
+.copy-code {
+  position: absolute;
+  top: 0;
+  right: 0;  
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  background-color: rgb(var(--color-accent));
+  color: white;
+  }
+
+  .copy-code:hover {
+    background-color: rgba(var(--color-accent), 0.9);
+    color: white;
+  }
+
+pre.astro-code {
+  max-height: 72vh;
+}
