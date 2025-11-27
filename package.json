@@ -18,6 +18,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.5",
     "@astrojs/mdx": "^4.3.12",
+    "@astrojs/netlify": "^6.6.3",
     "@astrojs/rss": "^4.0.14",
     "@fontsource/inter": "^5.2.8",
     "@resvg/resvg-js": "^2.4.1",

@@ -8,9 +8,13 @@ import sitemap from "@astrojs/sitemap";
 import mdx from '@astrojs/mdx';
 
 
+import netlify from "@astrojs/netlify";
+
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://rubenheeren.com",
+
   // replace this with your deployed domain
   integrations: [tailwind({
       applyBaseStyles: false
@@ -19,6 +23,7 @@ export default defineConfig({
     sitemap(),
     mdx()
   ],
+
   markdown: {
     remarkPlugins: [remarkToc, [remarkCollapse, {
       test: "Table of contents"
@@ -30,10 +35,13 @@ export default defineConfig({
     },
     extendDefaultPlugins: true
   },
+
   vite: {
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"]
     }
   },
+
   scopedStyleStrategy: "where",
+  adapter: netlify(),
 });
