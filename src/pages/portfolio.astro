@@ -1,25 +1,27 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
+import Main from "@layouts/Main.astro";
 import Footer from "@components/Footer.astro";
 import Hr from "@components/Hr.astro";
 
 export const prerender = true;
 ---
 
-<Layout title="Apps">
-  <Header activeNav="apps" />
-  <main id="main-content">
-    <section id="apps-header">
-      <h1>Apps</h1>
-      <p>Here are some apps and tools I've built:</p>
-    </section>
-
+<Layout title="Portfolio">
+  <Header activeNav="portfolio" />
+  <Main pageTitle="Portfolio" pageDesc="Apps and tools I've built.">
     <Hr />
 
-    <section id="apps-content">
-      <div class="apps-grid">
+    <section id="portfolio-content">
+      <div class="portfolio-grid">
         <div class="app-card">
+          <p>
+            Coming soon!
+          </p>
+        </div>
+
+        <!-- <div class="app-card">
           <h3>Blackjack Trainer</h3>
           <p class="app-description">Master your blackjack skills with our comprehensive training app.</p>
           
@@ -41,30 +43,29 @@ export const prerender = true;
           <a href="https://apps.apple.com/us/app/blackjack-trainer/id6751204237" target="_blank" rel="noopener noreferrer" class="app-link">
             View on App Store ↗
           </a>
-        </div>
+        </div> -->
       </div>
     </section>
-  </main>
-
+  </Main>
   <Footer />
 </Layout>
 
 <style>
-  #apps-header {
+  #portfolio-header {
     @apply pb-6 pt-8;
   }
-  #apps-header h1 {
+  #portfolio-header h1 {
     @apply text-3xl font-bold sm:text-5xl;
   }
-  #apps-header p {
+  #portfolio-header p {
     @apply my-4 text-lg;
   }
   
-  #apps-content {
+  #portfolio-content {
     @apply pb-6 pt-6;
   }
   
-  .apps-grid {
+  .portfolio-grid {
     @apply grid gap-6 sm:grid-cols-2;
   }
   

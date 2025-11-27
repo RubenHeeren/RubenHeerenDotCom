@@ -1,16 +1,18 @@
 ---
-title: "Test"
-date: 2025-11-24
-tags: ["test tag"]
-description: "This is a test post"
+title: "ReSharper errors as build errors in Visual Studio"
+date: 2025-11-27
+tags: ["ReSharper", "Dev Environment"]
+description: "In this post you'll learn how to make ReSharper errors show as build errors and fail a build in Visual Studio."
 ---
+
+This tutorial was written for ReSharper version x and Visual Studio 2022 version y. I expect it to work without issues on Visual Studio 2026 as well.
 
 # Yep so this is a test.
 
 And what if I add just some plain text? And if I add more content?
 
-![Intro Slide](./slide-1.png)
-So welcome everyone. Thank you for joining us here today. Today I'm gonna talk to you about how to st if you wanna start a new hobby, how you could do that.
+<!-- ![Intro Slide](./slide-1.png)
+So welcome everyone. Thank you for joining us here today. Today I'm gonna talk to you about how to st if you wanna start a new hobby, how you could do that. -->
 
 ```csharp
 using System;

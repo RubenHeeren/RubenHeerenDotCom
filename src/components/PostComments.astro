@@ -1,0 +1,46 @@
+<section class="mx-auto px-0 mt-12">
+    <script src="https://giscus.app/client.js"
+            data-repo="RubenHeeren/RubenHeerenDotCom"
+            data-repo-id="R_kgDOQc9Edw"
+            data-category="Blog Posts Comments"
+            data-category-id="DIC_kwDOQc9Ed84CzHVQ"
+            data-mapping="url"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+</section>
+
+<script is:inline>
+  function updateGiscusTheme() {
+    console.log("updateGiscusTheme");
+
+    // Determine theme based on the root element's data-theme attribute.
+    const themeAttr = document.documentElement.getAttribute("data-theme");
+    const theme = themeAttr === "dark" ? "dark" : "light";
+
+    const iframe = document.querySelector("iframe.giscus-frame");
+    if (!iframe || !iframe.contentWindow) return;
+
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme } } },
+      "https://giscus.app"
+    );
+  }
+
+  const observer = new MutationObserver(updateGiscusTheme);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+
+  window.addEventListener("load", () => {
+    updateGiscusTheme();
+  });
+</script>
