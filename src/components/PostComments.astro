@@ -1,46 +1,124 @@
-<section class="mx-auto px-0 mt-12">
-    <script src="https://giscus.app/client.js"
-            data-repo="RubenHeeren/RubenHeerenDotCom"
-            data-repo-id="R_kgDOQc9Edw"
-            data-category="Blog Posts Comments"
-            data-category-id="DIC_kwDOQc9Ed84CzHVQ"
-            data-mapping="url"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="top"
-            data-theme="preferred_color_scheme"
-            data-lang="en"
-            data-loading="lazy"
-            crossorigin="anonymous"
-            async>
-    </script>
-</section>
+<section
+  id="giscuss-container"
+  class="mx-auto px-0 mt-12"
+></section>
 
 <script is:inline>
-  function updateGiscusTheme() {
-    console.log("updateGiscusTheme");
+  const GISCUS_ORIGIN = "https://giscus.app";
 
-    // Determine theme based on the root element's data-theme attribute.
-    const themeAttr = document.documentElement.getAttribute("data-theme");
-    const theme = themeAttr === "dark" ? "dark" : "light";
+  let themeObserverStarted = false;
+  let messageListenerStarted = false;
 
+  function initGiscus() {
+    console.log("initGiscus");
+
+    const container = document.querySelector("#giscuss-container");
+    if (!container) {
+      console.log(
+        "initGiscus error, container not found. Aborting."
+      );
+      return;
+    }
+
+    // If iframe already exists, Giscus is effectively "initialized"
+    if (container.querySelector("iframe.giscus-frame")) {
+      console.log(
+        "initGiscus: iframe.giscus-frame already exists. Aborting."
+      );
+      return;
+    }
+
+    console.log("Initializing Giscus comments...");
+
+    const script = document.createElement("script");
+
+    Object.entries({
+      src: "https://giscus.app/client.js",
+      "data-repo": "RubenHeeren/RubenHeerenDotCom",
+      "data-repo-id": "R_kgDOQc9Edw",
+      "data-category": "Blog Posts Comments",
+      "data-category-id": "DIC_kwDOQc9Ed84CzHVQ",
+      "data-mapping": "url",
+      "data-strict": "0",
+      "data-reactions-enabled": "1",
+      "data-emit-metadata": "1",
+      "data-input-position": "top",
+      "data-theme": "preferred_color_scheme",
+      "data-lang": "en",
+      "data-loading": "lazy",
+      crossorigin: "anonymous",
+      async: "true",
+    }).forEach(([key, value]) => {
+      script.setAttribute(key, value);
+    });
+
+    container.innerHTML = "";
+    container.appendChild(script);
+  }
+
+  function getCurrentTheme() {
+    const themeAttr =
+      document.documentElement.getAttribute("data-theme");
+    return themeAttr === "dark" ? "dark" : "light";
+  }
+
+  function postThemeToGiscus() {
     const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe || !iframe.contentWindow) return;
+    if (!iframe || !iframe.contentWindow) {
+      console.log(
+        "Giscus iframe not ready, skipping theme update."
+      );
+      return;
+    }
+
+    const theme = getCurrentTheme();
+    console.log(`Sending theme to Giscus: ${theme}`);
 
     iframe.contentWindow.postMessage(
       { giscus: { setConfig: { theme } } },
-      "https://giscus.app"
+      GISCUS_ORIGIN
     );
   }
 
-  const observer = new MutationObserver(updateGiscusTheme);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["data-theme"],
-  });
+  function setupThemeObserverOnce() {
+    if (themeObserverStarted) return;
+    themeObserverStarted = true;
 
-  window.addEventListener("load", () => {
-    updateGiscusTheme();
+    const observer = new MutationObserver(() => {
+      // Every theme change: try to (re)init and then update theme
+      initGiscus();
+      setTimeout(postThemeToGiscus, 200);
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+  }
+
+  function setupMessageListenerOnce() {
+    if (messageListenerStarted) return;
+    messageListenerStarted = true;
+
+    window.addEventListener("message", (event) => {
+      if (event.origin !== GISCUS_ORIGIN) return;
+      if (!event.data || typeof event.data !== "object") return;
+      if (!("giscus" in event.data)) return;
+
+      console.log("Giscus reported ready, applying theme.");
+      postThemeToGiscus();
+    });
+  }
+
+  // Run on every page-load (initial + client-side navigations)
+  document.addEventListener("astro:page-load", () => {
+    console.log("astro:page-load -> init giscus");
+
+    initGiscus();
+    setupThemeObserverOnce();
+    setupMessageListenerOnce();
+
+    // First attempt to apply theme shortly after page load
+    setTimeout(postThemeToGiscus, 200);
   });
 </script>
