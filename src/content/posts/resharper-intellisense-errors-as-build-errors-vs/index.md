@@ -6,16 +6,26 @@ description: "In this post you'll learn how to make ReSharper errors show as bui
 postSlug: "resharper-intellisense-errors-as-build-errors-vs"
 ---
 
+## Table of contents
+
+## This is a heading 2.
+
 This tutorial was written for ReSharper version x and Visual Studio 2022 version y. I expect it to work without issues on Visual Studio 2026 as well.
 
-# Yep so this is a test.
+## This is another heading 2.
+Yep!
+
+### Heading 3 here
+Wow okay.
 
 <!-- ![Intro Slide](./slide-1.png)
 So welcome everyone. Thank you for joining us here today. Today I'm gonna talk to you about how to st if you wanna start a new hobby, how you could do that. -->
 
+## Test code files
+
 This is an example C# file.
 
-```csharp showlinenumbers
+```csharp showlinenumbers  title="test-file.cs"
 using System;
 
 namespace MarkdownCodeExample
@@ -78,7 +88,7 @@ namespace MarkdownCodeExample
 
 And this is a JavaScript file!
 
-```js showlinenumbers
+```js showlinenumbers title="test-file.js"
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";

@@ -14,10 +14,10 @@
   }
   html[data-theme="dark"] {
   /* page background */
-  --color-fill: 8, 9, 10; /* #08090A */
+  --color-fill: 18, 18, 18;
 
   /* normal text: a bit lighter than before, but not full white */
-  --color-text-base: 225, 229, 235; /* ~#e1e5eb */
+  --color-text-base: 205, 205, 205; /* ~#e1e5eb */
 
   /* links / accent (≈ #58a6ff) */
   --color-accent: 88, 166, 255; /* #58a6ff */
@@ -143,4 +143,21 @@
   .focus-outline {
     @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
   }
+}
+
+.expressive-code pre > code {
+  max-height: 72vh !important;
+}
+
+/* Heading + list created by remark-toc */
+h2[id='table-of-contents'] + ul {
+  margin-bottom: 3em; /* or any value you like */
+}
+
+h2[id='table-of-contents'] + ul li a {
+    text-decoration: none;
+}
+
+h2[id='table-of-contents'] + ul ul {
+  margin: 0 !important;
 }

@@ -44,9 +44,15 @@ export default defineConfig({
     mdx()],
 
   markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, {
-      test: "Table of contents"
-    }]],
+    remarkPlugins: [
+      [
+        remarkToc,
+        {
+          heading: 'Table of contents', // find this heading text
+          maxDepth: 3,
+        },
+      ],
+    ],
     rehypePlugins: [rehypeSlug],    
     extendDefaultPlugins: true
   },
