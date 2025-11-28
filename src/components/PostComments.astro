@@ -6,49 +6,36 @@
 <script is:inline>
   const GISCUS_ORIGIN = "https://giscus.app";
 
+  const GISCUS_CONFIG = {
+    src: "https://giscus.app/client.js",
+    "data-repo": "RubenHeeren/RubenHeerenDotCom",
+    "data-repo-id": "R_kgDOQc9Edw",
+    "data-category": "Blog Posts Comments",
+    "data-category-id": "DIC_kwDOQc9Ed84CzHVQ",
+    "data-mapping": "url",
+    "data-strict": "0",
+    "data-reactions-enabled": "1",
+    "data-emit-metadata": "1",
+    "data-input-position": "top",
+    "data-theme": "preferred_color_scheme",
+    "data-lang": "en",
+    "data-loading": "lazy",
+    crossorigin: "anonymous",
+    async: "true",
+  };
+
   let themeObserverStarted = false;
   let messageListenerStarted = false;
 
   function initGiscus() {
-    console.log("initGiscus");
-
     const container = document.querySelector("#giscuss-container");
-    if (!container) {
-      console.log(
-        "initGiscus error, container not found. Aborting."
-      );
-      return;
-    }
+    if (!container) return;
 
-    // If iframe already exists, Giscus is effectively "initialized"
-    if (container.querySelector("iframe.giscus-frame")) {
-      console.log(
-        "initGiscus: iframe.giscus-frame already exists. Aborting."
-      );
-      return;
-    }
-
-    console.log("Initializing Giscus comments...");
+    // If iframe already exists, Giscus is initialized
+    if (container.querySelector("iframe.giscus-frame")) return;
 
     const script = document.createElement("script");
-
-    Object.entries({
-      src: "https://giscus.app/client.js",
-      "data-repo": "RubenHeeren/RubenHeerenDotCom",
-      "data-repo-id": "R_kgDOQc9Edw",
-      "data-category": "Blog Posts Comments",
-      "data-category-id": "DIC_kwDOQc9Ed84CzHVQ",
-      "data-mapping": "url",
-      "data-strict": "0",
-      "data-reactions-enabled": "1",
-      "data-emit-metadata": "1",
-      "data-input-position": "top",
-      "data-theme": "preferred_color_scheme",
-      "data-lang": "en",
-      "data-loading": "lazy",
-      crossorigin: "anonymous",
-      async: "true",
-    }).forEach(([key, value]) => {
+    Object.entries(GISCUS_CONFIG).forEach(([key, value]) => {
       script.setAttribute(key, value);
     });
 
@@ -57,25 +44,17 @@
   }
 
   function getCurrentTheme() {
-    const themeAttr =
-      document.documentElement.getAttribute("data-theme");
-    return themeAttr === "dark" ? "dark" : "light";
+    return document.documentElement.getAttribute("data-theme") === "dark"
+      ? "dark"
+      : "light";
   }
 
   function postThemeToGiscus() {
     const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe || !iframe.contentWindow) {
-      console.log(
-        "Giscus iframe not ready, skipping theme update."
-      );
-      return;
-    }
-
-    const theme = getCurrentTheme();
-    console.log(`Sending theme to Giscus: ${theme}`);
+    if (!iframe?.contentWindow) return;
 
     iframe.contentWindow.postMessage(
-      { giscus: { setConfig: { theme } } },
+      { giscus: { setConfig: { theme: getCurrentTheme() } } },
       GISCUS_ORIGIN
     );
   }
@@ -85,7 +64,6 @@
     themeObserverStarted = true;
 
     const observer = new MutationObserver(() => {
-      // Every theme change: try to (re)init and then update theme
       initGiscus();
       setTimeout(postThemeToGiscus, 200);
     });
@@ -105,20 +83,14 @@
       if (!event.data || typeof event.data !== "object") return;
       if (!("giscus" in event.data)) return;
 
-      console.log("Giscus reported ready, applying theme.");
       postThemeToGiscus();
     });
   }
 
-  // Run on every page-load (initial + client-side navigations)
   document.addEventListener("astro:page-load", () => {
-    console.log("astro:page-load -> init giscus");
-
     initGiscus();
     setupThemeObserverOnce();
     setupMessageListenerOnce();
-
-    // First attempt to apply theme shortly after page load
     setTimeout(postThemeToGiscus, 200);
   });
 </script>

@@ -13,13 +13,24 @@
     --color-border: 236, 233, 233;
   }
   html[data-theme="dark"] {
-    --color-fill: 33, 39, 55;
-    --color-text-base: 234, 237, 243;
-    --color-accent: 80, 156, 241;     /* softer blue */
-    --color-card: 46, 57, 88;         /* slightly less saturated */
-    --color-card-muted: 64, 82, 125;  /* muted blue for subtle areas */
-    --color-border: 96, 123, 179;     /* gentle blue border */
-  }
+  /* page background (similar to body bg: #0d1117) */
+  --color-fill: 13, 17, 23; /* #0d1117 */
+
+  /* normal text (≈ #c9d1d9) */
+  --color-text-base: 201, 209, 217; /* #c9d1d9 */
+
+  /* links / accent (≈ #58a6ff) */
+  --color-accent: 88, 166, 255; /* #58a6ff */
+
+  /* cards / surfaces (≈ #161b22) */
+  --color-card: 22, 27, 34; /* #161b22 */
+
+  /* muted surface / secondary background (≈ #21262d) */
+  --color-card-muted: 33, 38, 45; /* #21262d */
+
+  /* borders (≈ #30363d) */
+  --color-border: 48, 54, 61; /* #30363d */
+}
   #sun-svg,
   html[data-theme="dark"] #moon-svg {
     display: none;
