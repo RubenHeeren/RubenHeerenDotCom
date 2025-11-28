@@ -10,6 +10,12 @@ import mdx from '@astrojs/mdx';
 
 import netlify from "@astrojs/netlify";
 
+import { readFileSync } from "fs";
+import expressiveCode, { ExpressiveCodeTheme } from "astro-expressive-code";
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
+
+const jsoncString = readFileSync(new URL(`./src/config/vscode-theme.jsonc`, import.meta.url), 'utf-8');
+const vscodeTheme = ExpressiveCodeTheme.fromJSONString(jsoncString);
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,21 +24,31 @@ export default defineConfig({
   // replace this with your deployed domain
   integrations: [tailwind({
       applyBaseStyles: false
+    }), react(), sitemap(), expressiveCode({
+      plugins: [pluginLineNumbers()],
+      defaultProps: {
+        wrap: true,
+        showLineNumbers: false,
+      },
+      styleOverrides: {
+        codeFontFamily: "var(--font-monospace)",
+        codeFontSize: "0.78125rem",
+        codeLineHeight: "1.6",
+        uiFontSize: "0.78125rem",
+
+        lineNumbers: {
+          highlightForeground: "#85c7ebb3",
+        },
+      },
+      themes: [vscodeTheme]
     }),
-    react(),
-    sitemap(),
-    mdx()
-  ],
+    mdx()],
 
   markdown: {
     remarkPlugins: [remarkToc, [remarkCollapse, {
       test: "Table of contents"
     }]],
-    rehypePlugins: [rehypeSlug],
-    shikiConfig: {
-      theme: "one-dark-pro",
-      wrap: true
-    },
+    rehypePlugins: [rehypeSlug],    
     extendDefaultPlugins: true
   },
 

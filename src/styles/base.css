@@ -13,11 +13,11 @@
     --color-border: 236, 233, 233;
   }
   html[data-theme="dark"] {
-  /* page background (similar to body bg: #0d1117) */
-  --color-fill: 13, 17, 23; /* #0d1117 */
+  /* page background */
+  --color-fill: 8, 9, 10; /* #08090A */
 
-  /* normal text (≈ #c9d1d9) */
-  --color-text-base: 201, 209, 217; /* #c9d1d9 */
+  /* normal text: a bit lighter than before, but not full white */
+  --color-text-base: 225, 229, 235; /* ~#e1e5eb */
 
   /* links / accent (≈ #58a6ff) */
   --color-accent: 88, 166, 255; /* #58a6ff */
@@ -143,22 +143,4 @@
   .focus-outline {
     @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
   }
-}
-
-.copy-code {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5rem 1rem;
-    background-color: rgb(var(--color-accent));
-    color: white;
-  }
-
-  .copy-code:hover {
-    background-color: rgba(var(--color-accent), 0.9);
-    color: white;
-  }
-
-pre.astro-code {
-  max-height: 72vh;
 }
