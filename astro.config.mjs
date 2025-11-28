@@ -7,7 +7,6 @@ import rehypeSlug from 'rehype-slug';
 import sitemap from "@astrojs/sitemap";
 import mdx from '@astrojs/mdx';
 
-
 import netlify from "@astrojs/netlify";
 
 import { readFileSync } from "fs";
