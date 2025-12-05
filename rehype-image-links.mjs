@@ -2,7 +2,7 @@
 import { visit } from "unist-util-visit";
 
 /**
- * Rehype plugin: wrap <img> in <a> that opens in new tab.
+ * Rehype plugin: wrap <img> in <a> that will get its href at runtime.
  */
 export default function rehypeImageLinks() {
   return function transformer(tree) {
@@ -21,13 +21,12 @@ export default function rehypeImageLinks() {
       if (parent.tagName === "a") return;
 
       const img = node;
-      const href = img.properties.src;
 
       const anchor = {
         type: "element",
         tagName: "a",
         properties: {
-          href,
+          "data-img-link": "true",
           target: "_blank",
           rel: "noopener noreferrer",
         },

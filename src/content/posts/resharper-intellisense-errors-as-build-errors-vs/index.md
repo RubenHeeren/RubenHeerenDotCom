@@ -3,7 +3,7 @@ title: "ReSharper inspection errors as build errors in Visual Studio"
 date: 2025-11-30
 tags: ["Dev Environment", "ReSharper", "Visual Studio"]
 description: "In this post you'll learn how to make ReSharper code inspection errors show as build errors and fail a build in Visual Studio."
-postSlug: "resharper-inspection-errors-as-build-errors-vs"
+postSlug: "resharper-intellisense-errors-as-build-errors-vs"
 ---
 
 ## Table of contents

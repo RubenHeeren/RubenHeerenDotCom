@@ -168,7 +168,7 @@ a:has(h2[id='table-of-contents']) + ul li a {
 }
 
 /* On hover: restore underline */
-a:has(h2[id='table-of-contents']) + ul li a:hover {
+a:has(h2[id='table-of-contents']) + ul li a:hover, a:has(h2[id='table-of-contents']) + ul li a:focus-visible {
   text-decoration: underline;
 }
 
@@ -178,10 +178,14 @@ a.no-text-decoration {
 }
 
 /* Hover state: show underline */
-a.no-text-decoration:hover {
+a.no-text-decoration:hover, a.no-text-decoration:focus-visible {
   text-decoration: underline;
 }
 
 .prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   color: rgba(var(--color-accent), 0.8) !important;
+}
+
+a:has(> img):hover img, a:has(> img):focus-visible img {
+  outline: 2px solid rgba(var(--color-accent), 1);  
 }
