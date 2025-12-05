@@ -13,6 +13,8 @@ import { readFileSync } from "fs";
 import expressiveCode, { ExpressiveCodeTheme } from "astro-expressive-code";
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 
+import imageLinksPlugin from "./rehype-image-links.mjs";
+
 const jsoncString = readFileSync(new URL(`./src/config/vscode-theme.jsonc`, import.meta.url), 'utf-8');
 const vscodeTheme = ExpressiveCodeTheme.fromJSONString(jsoncString);
 
@@ -22,26 +24,26 @@ export default defineConfig({
 
   // replace this with your deployed domain
   integrations: [tailwind({
-      applyBaseStyles: false
-    }), react(), sitemap(), expressiveCode({
-      plugins: [pluginLineNumbers()],
-      defaultProps: {
-        wrap: true,
-        showLineNumbers: false,
-      },
-      styleOverrides: {
-        codeFontFamily: "var(--font-monospace)",
-        codeFontSize: "0.78125rem",
-        codeLineHeight: "1.6",
-        uiFontSize: "0.78125rem",
+    applyBaseStyles: false
+  }), react(), sitemap(), expressiveCode({
+    plugins: [pluginLineNumbers()],
+    defaultProps: {
+      wrap: true,
+      showLineNumbers: false,
+    },
+    styleOverrides: {
+      codeFontFamily: "var(--font-monospace)",
+      codeFontSize: "0.78125rem",
+      codeLineHeight: "1.6",
+      uiFontSize: "0.78125rem",
 
-        lineNumbers: {
-          highlightForeground: "#85c7ebb3",
-        },
+      lineNumbers: {
+        highlightForeground: "#85c7ebb3",
       },
-      themes: [vscodeTheme]
-    }),
-    mdx()],
+    },
+    themes: [vscodeTheme]
+  }),
+  mdx()],
 
   markdown: {
     remarkPlugins: [
@@ -60,7 +62,10 @@ export default defineConfig({
         },
       ],
     ],
-    rehypePlugins: [rehypeSlug],    
+    rehypePlugins: [
+      rehypeSlug,
+      imageLinksPlugin,
+    ],
     extendDefaultPlugins: true
   },
 
