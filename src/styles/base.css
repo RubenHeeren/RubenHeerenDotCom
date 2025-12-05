@@ -149,15 +149,35 @@
   max-height: 72vh !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Heading + list created by remark-toc */
-h2[id='table-of-contents'] + ul {
+a:has(h2[id='table-of-contents']) + ul {
   margin-bottom: 3em; /* or any value you like */
 }
 
-h2[id='table-of-contents'] + ul li a {
-    text-decoration: none;
+a:has(h2[id='table-of-contents']) + ul ul {
+  margin: 0 !important;
 }
 
-h2[id='table-of-contents'] + ul ul {
-  margin: 0 !important;
+/* Base: remove underline */
+a:has(h2[id='table-of-contents']) + ul li a {
+  text-decoration: none;
+}
+
+/* On hover: restore underline */
+a:has(h2[id='table-of-contents']) + ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Base state */
+a.no-text-decoration {
+  text-decoration: none;
+}
+
+/* Hover state: show underline */
+a.no-text-decoration:hover {
+  text-decoration: underline;
 }
