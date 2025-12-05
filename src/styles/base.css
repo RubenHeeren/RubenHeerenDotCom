@@ -181,3 +181,7 @@ a.no-text-decoration {
 a.no-text-decoration:hover {
   text-decoration: underline;
 }
+
+.prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  color: rgba(var(--color-accent), 0.8) !important;
+}

@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import remarkToc from "remark-toc";
-import remarkCollapse from "remark-collapse";
+import remarkExternalLinks from "remark-external-links";
 import rehypeSlug from 'rehype-slug';
 import sitemap from "@astrojs/sitemap";
 import mdx from '@astrojs/mdx';
@@ -50,6 +50,13 @@ export default defineConfig({
         {
           heading: 'Table of contents', // find this heading text
           maxDepth: 3,
+        },
+      ],
+      [
+        remarkExternalLinks,
+        {
+          target: "_blank",
+          rel: ["noopener", "noreferrer"],
         },
       ],
     ],

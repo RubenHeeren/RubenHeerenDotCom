@@ -32,7 +32,6 @@ Install ReSharper on Visual Studio if you haven't yet. I created a .NET 10 conso
 You'll be presented with this screen:
 ![ReSharper settings layers](./resharper-settings-layers.png)
 
-> [!NOTE]
 > ReSharper exposes settings in layers, in that way you can have overrides. To learn more about that, see [this ReSharper documentation article](https://www.jetbrains.com/help/resharper/Sharing_Configuration_Options.html). 
 
 In this tutorial I'll modify the personal layer at the top. You can modify the settings of a layer by clicking on the little wrench.
@@ -215,4 +214,4 @@ This is the result:
 
 There you go. This is a basic implementation to make your build errors fail on ReSharper inspections with Error severity.
 
-You can download the [source code](https://github.com/RubenHeeren/ReSharperBuildErrors) here.
+You can download the source code [here](https://github.com/RubenHeeren/ReSharperBuildErrors).
